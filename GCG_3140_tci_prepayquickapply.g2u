@@ -1,0 +1,222 @@
+Program.Sub.ScreenSU.Start
+gui.F_PrepayApply..create
+gui.F_PrepayApply..caption("Apply Prepayments")
+gui.F_PrepayApply..size(6330,2520)
+gui.F_PrepayApply..position(0,0)
+gui.F_PrepayApply..event(unload,f_prepayapply_unload)
+gui.F_PrepayApply..alwaysontop(False)
+gui.F_PrepayApply..fontname("Arial")
+gui.F_PrepayApply..fontsize(8)
+gui.F_PrepayApply..forecolor(0)
+gui.F_PrepayApply..fontstyle(,,,,)
+gui.F_PrepayApply..BackColor(-2147483633)
+gui.F_PrepayApply..controlbox(True)
+gui.F_PrepayApply..maxbutton(True)
+gui.F_PrepayApply..minbutton(True)
+gui.F_PrepayApply..mousepointer(0)
+gui.F_PrepayApply..moveable(True)
+gui.F_PrepayApply..sizeable(True)
+gui.F_PrepayApply..ShowInTaskBar(True)
+gui.F_PrepayApply..titlebar(True)
+gui.F_PrepayApply.txtOrdNo.create(textbox,"",True,1470,300,0,200,400,False,0,Arial,8,-2147483643,1)
+gui.F_PrepayApply.txtOrdTotal.create(textbox,"",True,1470,300,0,1900,400,False,0,Arial,8,-2147483643,1)
+gui.F_PrepayApply.txtPrevPrepay.create(textbox,"",True,1470,300,0,3600,400,False,0,Arial,8,-2147483643,1)
+gui.F_PrepayApply.txtInvTotal.create(textbox,"",True,1470,300,0,200,1000,False,0,Arial,8,-2147483643,1)
+gui.F_PrepayApply.txtPrepayAppl.create(textbox,"",True,1470,300,0,1900,1000,False,0,Arial,8,-2147483643,1)
+gui.F_PrepayApply.lbl1.create(label,"Order Number",True,1140,255,1,200,200,True,0,Arial,8,-2147483633,0)
+gui.F_PrepayApply.lbl2.create(label,"Order Total",True,1170,255,1,1900,200,True,0,Arial,8,-2147483633,0)
+gui.F_PrepayApply.lbl3.create(label,"Previously Applied Prepayments",True,2475,255,1,3600,200,True,0,Arial,8,-2147483633,0)
+gui.F_PrepayApply.lbl4.create(label,"Current Invoice Total",True,1620,255,1,200,800,True,0,Arial,8,-2147483633,0)
+gui.F_PrepayApply.lbl5.create(label,"Prepayments to Apply",True,1935,255,1,1900,800,True,0,Arial,8,-2147483633,0)
+gui.F_PrepayApply.cmdProcess.create(button)
+gui.F_PrepayApply.cmdProcess.caption("Process")
+gui.F_PrepayApply.cmdProcess.visible(True)
+gui.F_PrepayApply.cmdProcess.size(855,375)
+gui.F_PrepayApply.cmdProcess.zorder(0)
+gui.F_PrepayApply.cmdProcess.position(200,1500)
+gui.F_PrepayApply.cmdProcess.enabled(True)
+gui.F_PrepayApply.cmdProcess.fontname("Arial")
+gui.F_PrepayApply.cmdProcess.fontsize(8)
+gui.F_PrepayApply.cmdProcess.event(click,cmdprocess_click)
+gui.F_PrepayApply.cmdOverride.create(button)
+gui.F_PrepayApply.cmdOverride.caption("Override")
+gui.F_PrepayApply.cmdOverride.visible(True)
+gui.F_PrepayApply.cmdOverride.size(855,375)
+gui.F_PrepayApply.cmdOverride.zorder(0)
+gui.F_PrepayApply.cmdOverride.position(1200,1500)
+gui.F_PrepayApply.cmdOverride.enabled(True)
+gui.F_PrepayApply.cmdOverride.fontname("Arial")
+gui.F_PrepayApply.cmdOverride.fontsize(8)
+gui.F_PrepayApply.cmdOverride.event(click,cmdoverride_click)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Variable.Global.sOrder.Declare(String)
+Variable.Global.fPrevTotal.Declare(Float,0)
+Variable.Global.sInvoice.Declare(String)
+Variable.UDT.PrepayAppl.Define("PPID",Long)
+Variable.UDT.PrepayAppl.Define("AmtApplied",Float)
+Variable.UDT.PrepayAppl.Define("AmtRemaining",Float)
+Variable.uGlobal.uPPA.Declare("PrepayAppl")
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+'Hook 34901, 34910 - Invoice Batch Processing
+'7/20/10
+'ANS
+
+V.Local.sTemp.Declare(String)
+
+F.Intrinsic.Control.If(V.Caller.Hook,=,"34901")
+	V.Passed.000006.Set("Apply Prepay")
+	F.Intrinsic.Control.End
+F.Intrinsic.Control.Else
+	V.Global.sOrder.Set(V.Passed.009002)
+	V.Global.sInvoice.Set(V.Passed.009004)
+	Gui.F_PrepayApply.txtOrdNo.Text(V.global.sorder)
+	F.Intrinsic.String.Format(V.Passed.009007,"$0.00",V.Local.sTemp)
+	Gui.F_PrepayApply.txtOrdTotal.Text(V.Local.sTemp)
+	F.Intrinsic.String.Format(V.Passed.009006,"$0.00",V.Local.sTemp)
+	Gui.F_PrepayApply.txtInvTotal.Text(V.Local.sTemp)
+
+	F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+	F.Intrinsic.Control.CallSub("GetPrevPrepay")
+
+	Gui.F_PrepayApply..Show
+F.Intrinsic.Control.endif
+
+Program.Sub.Main.End
+
+program.sub.cmdprocess_click.start
+V.Local.i.Declare(Long)
+V.Local.iID.Declare(Long)
+V.Local.sSQL.Declare(String)
+V.Local.fAmt.Declare(Float)
+V.Local.fBal.Declare(Float)
+V.Local.fApplAmt.Declare(Float)
+V.Local.sLineInfo.Declare(String)
+V.Local.sAmt.Declare(String)
+V.Local.sID.Declare(String)
+
+F.Intrinsic.Control.For(V.Local.i,0,V.uGlobal.uPPA.UBound,1)
+	F.Intrinsic.String.Concat("Select * from ATG_Prepay_Applied where OrderNo='",V.Global.sOrder,"' and Invoice='",V.Global.sInvoice,"' and PrepayID=",V.uGlobal.uPPA(v.Local.i)!ppid,V.Local.sSQL)
+	F.ODBC.Connection!con.OpenRecordsetRW("rst",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.Odbc.con!rst.EOF,=,True)
+		F.ODBC.con!rst.AddNew
+		F.ODBC.con!rst.Set!OrderNo(V.Global.sOrder)
+		F.ODBC.con!rst.Set!PrepayID(V.uGlobal.uPPA(v.Local.i)!ppid)
+		F.ODBC.con!rst.Set!Invoice(V.Global.sInvoice)
+		F.ODBC.con!rst.Set!Posted(False)
+	F.Intrinsic.Control.EndIf
+	F.ODBC.con!rst.Set!Invoice_Date(V.Ambient.Now)
+	'F.Intrinsic.String.Mid(V.uGlobal.uPPA(v.Local.i)!AmtRemaining,2,V.Local.sAmt)
+	'F.ODBC.con!rst.Set!Applied_Amt(V.Local.sAmt.Float)
+	F.Intrinsic.Math.Add(V.ODBC.con!rst.FieldVal!Applied_Amt,V.uGlobal.uPPA(v.Local.i)!AmtRemaining,V.Local.fAmt)
+	F.ODBC.con!rst.Set!Applied_Amt(V.local.famt)
+	F.ODBC.con!rst.Set!GSUser(V.Caller.User)
+	F.ODBC.con!rst.Update
+	F.ODBC.con!rst.Close
+
+	F.Intrinsic.String.Concat("Select * from ATG_Prepay where OrderNo='",V.Global.sOrder,"' and PrepayID=",V.uGlobal.uPPA(v.Local.i)!ppid,V.Local.sSQL)
+	F.ODBC.Connection!con.OpenRecordsetRW("rst",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.Odbc.con!rst.EOF,=,False)
+		F.ODBC.con!rst.Set!Payment_Applied("Y")
+		F.ODBC.con!rst.Update
+	F.Intrinsic.Control.EndIf
+	F.ODBC.con!rst.Close
+F.Intrinsic.Control.Next(V.Local.i)
+
+F.Intrinsic.Control.CallSub("F_PrepayApply_Unload")
+
+	
+
+
+program.sub.cmdprocess_click.end
+
+program.sub.cmdoverride_click.start
+V.Local.sFile.Declare(String)
+V.Local.iPID.Declare(Long)
+
+F.Intrinsic.String.Concat(V.Caller.PluginsDir,"\GAB\GAS\TCI_PrepayInvoice.gas",V.Local.sFile)
+F.Global.General.SetPassedDataElement("Order",V.Global.sOrder)
+F.Global.General.SetPassedDataElement("Invoice",V.Global.sInvoice)
+F.Global.General.SetPassedDataElement("InvoicedAmount",V.Passed.009006)
+F.Global.General.CallSyncGAS(V.Local.sFile)
+
+F.Intrinsic.Control.CallSub("F_PrepayApply_Unload")
+
+program.sub.cmdoverride_click.end
+
+program.sub.f_prepayapply_unload.start
+F.Intrinsic.Control.If(V.ODBC.con.State,=,1)
+	f.ODBC.Connection!con.Close
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.End
+
+program.sub.f_prepayapply_unload.end
+
+Program.Sub.GetPrevPrepay.Start
+V.Local.sTemp.Declare(String)
+V.Local.sSQL.Declare(String)
+V.Local.fAmt.Declare(Float)
+V.Local.i.Declare(Long)
+V.Local.fPAmt.Declare(Float)
+V.Local.fPPrev.Declare(Float)
+
+V.uGlobal.uPPA.Redim(0,25)
+V.Local.i.Set(-1)
+'F.Intrinsic.Debug.InvokeDebugger
+'F.Intrinsic.Debug.Stop
+F.Intrinsic.String.Concat("Select PrepayID, Amount from ATG_Prepay where OrderNo='",V.Global.sOrder,"' and Deleted=0",V.Local.sSQL)
+F.ODBC.Connection!con.OpenRecordsetRO("rst",V.Local.sSQL)
+F.Intrinsic.Control.DoUntil(V.ODBC.con!rst.EOF,=,True)
+	F.Intrinsic.Control.If(V.Local.i,=,-1)
+		V.Local.i.Set(0)
+	F.Intrinsic.Control.EndIf
+
+	V.Local.fPPrev.Set(0)
+	F.Intrinsic.Math.Add(V.Local.fAmt,V.ODBC.con!rst.FieldVal!Amount,V.Local.fAmt)
+	V.uGlobal.uPPA(v.Local.i)!PPID.Set(V.ODBC.con!rst.FieldVal!PrepayID)
+	
+	F.Intrinsic.String.Concat("Select Applied_Amt from ATG_Prepay_Applied where OrderNo='",V.Global.sOrder,"' and PrepayID=",V.ODBC.con!rst.FieldVal!PrepayID,V.Local.sSQL)
+	F.ODBC.Connection!con.OpenRecordsetRO("rstA",V.Local.sSQL)
+	F.Intrinsic.Control.DoUntil(V.ODBC.con!rstA.EOF,=,True)
+		F.Intrinsic.Math.Add(V.Global.fPrevTotal,V.ODBC.con!rstA.FieldVal!Applied_Amt,V.Global.fPrevTotal)
+		F.Intrinsic.Math.Add(V.Local.fPPrev,V.ODBC.con!rstA.FieldVal!Applied_Amt,V.Local.fPPrev)
+		F.ODBC.con!rstA.MoveNext
+	F.Intrinsic.Control.Loop
+	F.ODBC.con!rstA.Close
+	
+	V.uGlobal.uPPA(v.Local.i)!AmtApplied.Set(V.Local.fPPrev)
+	F.Intrinsic.Math.Sub(V.ODBC.con!rst.FieldVal!Amount,V.Local.fPPrev,V.Local.fPAmt)
+	V.uGlobal.uPPA(v.Local.i)!AmtRemaining.Set(V.Local.fPAmt)
+	
+	F.Intrinsic.Math.Add(V.Local.i,1,V.Local.i)
+	F.ODBC.con!rst.MoveNext
+F.Intrinsic.Control.Loop
+F.ODBC.con!rst.Close
+
+F.Intrinsic.Control.If(V.Local.i,=,-1)
+
+F.Intrinsic.Control.Else
+	F.Intrinsic.Math.Sub(V.Local.i,1,V.Local.i)
+	V.uGlobal.uPPA.RedimPreserve(0,V.Local.i)
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Math.Sub(V.Local.fAmt,V.Global.fPrevTotal,V.Local.fAmt)
+F.Intrinsic.String.Format(V.Global.fPrevTotal,"$0.00",V.Local.sTemp)
+Gui.F_PrepayApply.txtPrevPrepay.Text(V.Local.sTemp)
+F.Intrinsic.String.Format(V.Local.fAmt,"$0.00",V.Local.sTemp)
+Gui.F_PrepayApply.txtPrepayAppl.Text(V.Local.sTemp)
+
+F.Intrinsic.Control.If(V.Screen.F_PrepayApply!txtPrepayAppl.Text,=,"$0.00")
+	F.Intrinsic.Control.CallSub("F_PrepayApply_Unload")
+F.Intrinsic.Control.EndIf
+
+Program.Sub.GetPrevPrepay.End
+
+
