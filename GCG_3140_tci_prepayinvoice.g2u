@@ -1,0 +1,556 @@
+Program.Sub.ScreenSU.Start
+gui.F_PrepayAppl..create
+gui.F_PrepayAppl..caption("Prepayment Application")
+gui.F_PrepayAppl..size(5865,6210)
+gui.F_PrepayAppl..position(0,0)
+gui.F_PrepayAppl..event(unload,ProgramEnd)
+gui.F_PrepayAppl..alwaysontop(True)
+gui.F_PrepayAppl..fontname("arial")
+gui.F_PrepayAppl..fontsize(8)
+gui.F_PrepayAppl..forecolor(0)
+gui.F_PrepayAppl..fontstyle(False,False,False,False,False)
+gui.F_PrepayAppl..BackColor(-2147483633)
+gui.F_PrepayAppl..controlbox(True)
+gui.F_PrepayAppl..maxbutton(False)
+gui.F_PrepayAppl..minbutton(True)
+gui.F_PrepayAppl..mousepointer(0)
+gui.F_PrepayAppl..moveable(True)
+gui.F_PrepayAppl..sizeable(False)
+gui.F_PrepayAppl..ShowInTaskBar(True)
+gui.F_PrepayAppl..titlebar(True)
+gui.F_PrepayAppl.frmPrePay.create(frame)
+gui.F_PrepayAppl.frmPrePay.caption("Prepayment")
+gui.F_PrepayAppl.frmPrePay.size(5220,2175)
+gui.F_PrepayAppl.frmPrePay.position(200,100)
+gui.F_PrepayAppl.frmPrePay.visible(True)
+gui.F_PrepayAppl.frmPrePay.fontname("arial")
+gui.F_PrepayAppl.frmPrePay.fontsize(8)
+gui.F_PrepayAppl.lvwAppl.create(listview)
+gui.F_PrepayAppl.lvwAppl.view(3)
+gui.F_PrepayAppl.lvwAppl.addlistviewcolumn("ID",495,0)
+gui.F_PrepayAppl.lvwAppl.addlistviewcolumn("Payment Date",1735,0)
+gui.F_PrepayAppl.lvwAppl.addlistviewcolumn("Type",1250,0)
+gui.F_PrepayAppl.lvwAppl.addlistviewcolumn("Amount to Apply",1665,0)
+gui.F_PrepayAppl.lvwAppl.visible(True)
+gui.F_PrepayAppl.lvwAppl.size(5220,2430)
+gui.F_PrepayAppl.lvwAppl.zorder(0)
+gui.F_PrepayAppl.lvwAppl.position(200,2400)
+gui.F_PrepayAppl.lvwAppl.enabled(True)
+gui.F_PrepayAppl.lvwAppl.fontname("arial")
+gui.F_PrepayAppl.lvwAppl.fontsize(8)
+gui.F_PrepayAppl.lvwAppl.event(itemclick,LoadPayment)
+gui.F_PrepayAppl.cmdApply.create(button)
+gui.F_PrepayAppl.cmdApply.caption("Apply")
+gui.F_PrepayAppl.cmdApply.visible(True)
+gui.F_PrepayAppl.cmdApply.size(975,375)
+gui.F_PrepayAppl.cmdApply.zorder(0)
+gui.F_PrepayAppl.cmdApply.position(3500,5000)
+gui.F_PrepayAppl.cmdApply.enabled(True)
+gui.F_PrepayAppl.cmdApply.fontname("arial")
+gui.F_PrepayAppl.cmdApply.fontsize(8)
+gui.F_PrepayAppl.cmdApply.event(click,Apply)
+gui.F_PrepayAppl.txtPayID.create(textbox,"",True,825,315,0,2000,500,False,0,arial,8,16777215,1)
+gui.F_PrepayAppl.txtPayID.parent("frmprepay")
+gui.F_PrepayAppl.cmd2.create(button)
+gui.F_PrepayAppl.cmd2.caption("")
+gui.F_PrepayAppl.cmd2.visible(True)
+gui.F_PrepayAppl.cmd2.size(300,285)
+gui.F_PrepayAppl.cmd2.zorder(0)
+gui.F_PrepayAppl.cmd2.position(2960,500)
+gui.F_PrepayAppl.cmd2.enabled(True)
+gui.F_PrepayAppl.cmd2.parent("frmprepay")
+gui.F_PrepayAppl.cmd2.fontname("arial")
+gui.F_PrepayAppl.cmd2.fontsize(8)
+gui.F_PrepayAppl.cmd2.event(click,Browse)
+gui.F_PrepayAppl.txtApplAmt.create(textbox,"",True,1320,315,0,2000,1700,True,0,arial,8,-2147483643,1)
+gui.F_PrepayAppl.txtApplAmt.parent("frmprepay")
+gui.F_PrepayAppl.txtOrder.create(textbox,"",True,1485,315,0,235,500,False,0,arial,8,-2147483643,1)
+gui.F_PrepayAppl.txtOrder.parent("frmprepay")
+gui.F_PrepayAppl.dtpPrePay.create(datepicker)
+gui.F_PrepayAppl.dtpPrePay.visible(True)
+gui.F_PrepayAppl.dtpPrePay.size(1320,285)
+gui.F_PrepayAppl.dtpPrePay.zorder(0)
+gui.F_PrepayAppl.dtpPrePay.position(3600,490)
+gui.F_PrepayAppl.dtpPrePay.enabled(False)
+gui.F_PrepayAppl.dtpPrePay.parent("frmprepay")
+gui.F_PrepayAppl.txtRemBal.create(textbox,"",True,1320,315,0,3600,1100,False,0,arial,8,16777215,1)
+gui.F_PrepayAppl.txtRemBal.parent("frmprepay")
+gui.F_PrepayAppl.txtOrigAmt.create(textbox,"",True,1320,315,0,2000,1100,False,0,arial,8,16777215,1)
+gui.F_PrepayAppl.txtOrigAmt.parent("frmprepay")
+gui.F_PrepayAppl.cboType.create(combobox)
+gui.F_PrepayAppl.cboType.text("")
+gui.F_PrepayAppl.cboType.visible(True)
+gui.F_PrepayAppl.cboType.size(1485,330)
+gui.F_PrepayAppl.cboType.zorder(0)
+gui.F_PrepayAppl.cboType.position(230,1100)
+gui.F_PrepayAppl.cboType.enabled(False)
+gui.F_PrepayAppl.cboType.parent("frmprepay")
+gui.F_PrepayAppl.cboType.fontname("arial")
+gui.F_PrepayAppl.cboType.fontsize(8)
+gui.F_PrepayAppl.lblORder.create(label,"Order",True,1095,255,1,200,245,True,0,arial,8,-2147483633,0)
+gui.F_PrepayAppl.lblORder.parent("frmprepay")
+gui.F_PrepayAppl.lblPrePayID.create(label,"Prepayment ID",True,1095,255,1,2000,245,True,0,arial,8,0,0)
+gui.F_PrepayAppl.lblPrePayID.parent("frmprepay")
+gui.F_PrepayAppl.lblPayDate.create(label,"Payment Date",True,1095,255,1,3600,245,True,0,arial,8,0,0)
+gui.F_PrepayAppl.lblPayDate.parent("frmprepay")
+gui.F_PrepayAppl.lblType.create(label,"Type",True,1095,255,1,200,845,True,0,arial,8,0,0)
+gui.F_PrepayAppl.lblType.parent("frmprepay")
+gui.F_PrepayAppl.lblOrigAmt.create(label,"Prepayment Amount",True,1515,255,1,2000,845,True,0,arial,8,0,0)
+gui.F_PrepayAppl.lblOrigAmt.parent("frmprepay")
+gui.F_PrepayAppl.lblRemBal.create(label,"Prepayment Balance",True,1515,255,1,3600,845,True,0,arial,8,0,0)
+gui.F_PrepayAppl.lblRemBal.parent("frmprepay")
+gui.F_PrepayAppl.lblApplAmt.create(label,"Amount to Apply",True,1320,255,1,2000,1445,True,0,arial,8,-2147483633,0)
+gui.F_PrepayAppl.lblApplAmt.parent("frmprepay")
+gui.F_PrepayAppl.cmdSave.create(button)
+gui.F_PrepayAppl.cmdSave.caption("Save")
+gui.F_PrepayAppl.cmdSave.visible(True)
+gui.F_PrepayAppl.cmdSave.size(975,375)
+gui.F_PrepayAppl.cmdSave.zorder(0)
+gui.F_PrepayAppl.cmdSave.position(200,5000)
+gui.F_PrepayAppl.cmdSave.enabled(True)
+gui.F_PrepayAppl.cmdSave.fontname("arial")
+gui.F_PrepayAppl.cmdSave.fontsize(8)
+gui.F_PrepayAppl.cmdSave.event(click,Save)
+gui.F_PrepayAppl.cmdDel.create(button)
+gui.F_PrepayAppl.cmdDel.caption("Delete")
+gui.F_PrepayAppl.cmdDel.visible(True)
+gui.F_PrepayAppl.cmdDel.size(975,375)
+gui.F_PrepayAppl.cmdDel.zorder(0)
+gui.F_PrepayAppl.cmdDel.position(1300,5000)
+gui.F_PrepayAppl.cmdDel.enabled(True)
+gui.F_PrepayAppl.cmdDel.fontname("arial")
+gui.F_PrepayAppl.cmdDel.fontsize(8)
+gui.F_PrepayAppl.cmdDel.event(click,Delete)
+gui.F_PrepayAppl.cmdClear.create(button)
+gui.F_PrepayAppl.cmdClear.caption("Clear")
+gui.F_PrepayAppl.cmdClear.visible(True)
+gui.F_PrepayAppl.cmdClear.size(975,375)
+gui.F_PrepayAppl.cmdClear.zorder(0)
+gui.F_PrepayAppl.cmdClear.position(2400,5000)
+gui.F_PrepayAppl.cmdClear.enabled(True)
+gui.F_PrepayAppl.cmdClear.fontname("arial")
+gui.F_PrepayAppl.cmdClear.fontsize(8)
+gui.F_PrepayAppl.cmdClear.event(click,Clear)
+gui.F_PrepayAppl.chkFull.create(checkbox)
+gui.F_PrepayAppl.chkFull.caption("Apply remaining balance")
+gui.F_PrepayAppl.chkFull.visible(True)
+gui.F_PrepayAppl.chkFull.size(1455,495)
+gui.F_PrepayAppl.chkFull.zorder(0)
+gui.F_PrepayAppl.chkFull.position(3600,1550)
+gui.F_PrepayAppl.chkFull.enabled(True)
+gui.F_PrepayAppl.chkFull.alignment(0)
+gui.F_PrepayAppl.chkFull.parent("frmprepay")
+gui.F_PrepayAppl.chkFull.fontname("arial")
+gui.F_PrepayAppl.chkFull.fontsize(8)
+gui.F_PrepayAppl.chkFull.event(click,CheckClick)
+gui.F_PrepayAppl.txtInvoicedAmt.create(textbox,"",False,1485,300,0,235,1700,False,0,Arial,8,-2147483643,1)
+gui.F_PrepayAppl.txtInvoicedAmt.parent("frmprepay")
+gui.F_PrepayAppl.lblInvoicedAmt.create(label,"Total Amount Due",False,1335,255,1,235,1445,True,0,Arial,8,-2147483633,0)
+gui.F_PrepayAppl.lblInvoicedAmt.parent("frmprepay")
+gui.F_PrepayAppl.chkFull.tabstop(True)
+gui.F_PrepayAppl.chkFull.tabindex(1)
+gui.F_PrepayAppl.txtApplAmt.tabstop(True)
+gui.F_PrepayAppl.txtApplAmt.tabindex(2)
+gui.F_PrepayAppl.cmdSave.tabstop(True)
+gui.F_PrepayAppl.cmdSave.tabindex(3)
+gui.F_PrepayAppl.cmdDel.tabstop(True)
+gui.F_PrepayAppl.cmdDel.tabindex(4)
+gui.F_PrepayAppl.cmdClear.tabstop(True)
+gui.F_PrepayAppl.cmdClear.tabindex(5)
+gui.F_PrepayAppl.cmdApply.tabstop(True)
+gui.F_PrepayAppl.cmdApply.tabindex(6)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Variable.Global.sOrder.Declare(String)
+Variable.Global.sInvoice.Declare(String)
+Variable.Global.sInvoicedAmt.Declare(String,"-1")
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+V.Local.sTemp.Declare(String)
+F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+F.Intrinsic.Control.If(V.Caller.Hook,=,34910)
+	V.Global.sOrder.Set(V.Passed.Order)
+	V.Global.sInvoice.Set(V.Passed.Invoice)
+	V.Global.sInvoicedAmt.Set(V.Passed.InvoicedAmount)
+	F.Intrinsic.String.Format(V.Global.sInvoicedAmt,"$0.00",V.Local.sTemp)
+	Gui.F_PrepayAppl.txtInvoicedAmt.Text(V.Local.sTemp)
+	Gui.F_PrepayAppl.lblInvoicedAmt.Visible(True)
+	Gui.F_PrepayAppl.txtInvoicedAmt.visible(True)
+F.Intrinsic.Control.Else
+	V.Global.sOrder.Set(V.Passed.009001)
+	'V.Global.sOrder.Set("0000224")
+	V.Global.sInvoice.Set(V.Passed.009000)
+	'V.Global.sInvoice.Set("123678")
+	F.Intrinsic.control.If(V.Caller.Hook,=,15110)
+		'V.Global.sInvoicedAmt.Set("100")
+		V.Global.sInvoicedAmt.Set(V.Passed.009003)
+		F.Intrinsic.String.Format(V.Global.sInvoicedAmt,"$0.00",V.Local.sTemp)
+		Gui.F_PrepayAppl.txtInvoicedAmt.Text(V.Local.sTemp)
+		Gui.F_PrepayAppl.lblInvoicedAmt.Visible(True)
+		Gui.F_PrepayAppl.txtInvoicedAmt.visible(True)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.EndIf
+
+Function.Intrinsic.Control.CallSub("FillCombo")
+F.Intrinsic.Control.CallSub("LoadList")
+'Function.Intrinsic.Control.CallSub("LoadFakeData")
+Gui.F_PrepayAppl.txtOrder.Text(V.Global.sOrder)
+Gui.F_PrepayAppl..Show
+
+Program.Sub.Main.End
+
+Program.Sub.ProgramEnd.Start
+Function.Intrinsic.Control.If(Variable.Odbc.Con.State,=,1)
+	Function.Odbc.Connection!Con.Close
+Function.Intrinsic.Control.Endif
+Function.Intrinsic.Control.End
+
+Program.Sub.ProgramEnd.End
+
+Program.Sub.FillCombo.Start
+Gui.F_PrepayAppl.cboType.AddItem("Cash",0)
+Gui.F_PrepayAppl.cboType.AddItem("Check",1)
+Gui.F_PrepayAppl.cboType.AddItem("Credit Card",2)
+
+Program.Sub.FillCombo.End
+
+Program.Sub.LoadPayment.Start
+V.Local.sSQL.Declare(String)
+V.Local.iIndex.Declare(Long)
+V.Local.sType.Declare(String)
+V.Local.iYear.Declare(Long)
+V.Local.sAmt.Declare(String)
+V.Local.fAmt.Declare(Float)
+V.Local.fBal.Declare(Float)
+V.Local.sBal.Declare(String)
+V.Local.sApplAmt.Declare(String)
+V.Local.iLen.Declare(Long)
+
+F.Intrinsic.String.Concat("Select * from ATG_Prepay where OrderNo='",V.Global.sOrder,"' and PrepayID=",V.Screen.F_PrepayAppl!lvwAppl.SelectedItemText,V.Local.ssQL)
+F.ODBC.Connection!con.OpenRecordsetRO("rst",V.Local.sSQL)
+F.Intrinsic.Control.If(V.Odbc.con!rst.EOF,=,False)
+	Gui.F_PrepayAppl.txtPayID.Text(V.Screen.F_PrepayAppl!lvwAppl.SelectedItemText)
+	Gui.F_PrepayAppl.dtpPrePay.Value(V.Screen.F_PrepayAppl!lvwAppl.SelectedItemSubItem(1))
+	F.Intrinsic.Control.If(V.Screen.F_PrepayAppl!lvwAppl.SelectedItemSubItem(2),=,"Cash")
+		Gui.F_PrepayAppl.cboType.ListIndex(0)
+	F.Intrinsic.Control.ElseIf(V.Screen.F_PrepayAppl!lvwAppl.SelectedItemSubItem(2),=,"Check")
+		Gui.F_PrepayAppl.cboType.ListIndex(1)
+	F.Intrinsic.Control.ElseIf(V.Screen.F_PrepayAppl!lvwAppl.SelectedItemSubItem(2),=,"Credit Card")
+		Gui.F_PrepayAppl.cboType.ListIndex(2)
+	F.Intrinsic.Control.Else
+		Gui.F_PrepayAppl.cboType.ListIndex(-1)
+	F.Intrinsic.Control.EndIf
+	'Gui.F_PrepayAppl.cboType.Text(V.Screen.F_PrepayAppl!lvwAppl.SelectedItemSubItem(2))
+	F.Intrinsic.String.ConvertToString(V.Odbc.con!rst.FieldVal!Amount,V.Local.sAmt)
+	F.Intrinsic.String.Format(V.Local.sAmt,"$0.00",V.Local.sAmt)
+	'F.Intrinsic.String.Concat("$",V.Local.sAmt,V.Local.sAmt)
+	Gui.F_PrepayAppl.txtOrigAmt.Text(V.Local.sAmt)
+	F.Intrinsic.Control.CallSub("GetBalance","sPrepayID",V.Screen.F_PrepayAppl!lvwAppl.SelectedItemText)
+	F.Intrinsic.Control.If(V.Args.fBal,=,0)
+		V.Local.sBal.Set(V.Local.sAmt)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Math.ConvertToFloat(V.Odbc.con!rst.FieldVal!Amount,V.Local.fAmt)
+		F.Intrinsic.Math.Sub(V.Local.fAmt,V.Args.fBal,V.Local.fBal)
+		F.Intrinsic.String.Format(V.Local.fBal,"$0.00",V.Local.sBal)
+		'F.Intrinsic.String.Concat("$",V.Local.fBal.String,V.Local.sBal)
+	F.Intrinsic.Control.EndIf
+	Gui.F_PrepayAppl.txtRemBal.Text(V.Local.sBal)
+	V.Local.sApplAmt.Set(V.Screen.F_PrepayAppl!lvwAppl.SelectedItemSubItem(3))
+	F.Intrinsic.String.Format(V.Local.sApplAmt,"0.00",V.Local.sApplAmt)
+	'F.Intrinsic.Math.Sub(V.Local.sApplAmt.Length,1,V.Local.iLen)
+	'F.Intrinsic.String.Right(V.Local.sApplAmt,V.Local.iLen,V.Local.sApplAmt)
+	F.Intrinsic.Control.If(V.Local.sApplAmt.Float,=,V.Local.fBal)
+		Gui.F_PrepayAppl.chkFull.Value(1)
+	F.Intrinsic.Control.Else
+		Gui.F_PrepayAppl.chkFull.Value(0)
+	F.Intrinsic.Control.EndIf
+	Gui.F_PrepayAppl.txtApplAmt.Text(V.Local.sApplAmt)
+F.Intrinsic.Control.Else
+	F.Intrinsic.UI.Msgbox("Could not open prepayment.")
+F.Intrinsic.Control.EndIf
+F.ODBC.con!rst.Close
+
+Program.Sub.LoadPayment.End
+
+Program.Sub.Delete.Start
+V.Local.i.Declare(Long)
+V.Local.sKey.Declare(String)
+V.Local.sID.Declare(String)
+V.Local.sTempKey.Declare
+V.Local.sRow.Declare
+V.Local.iindex.Declare(long)
+
+'F.Intrinsic.Debug.Stop
+V.Local.sTempKey.Set(V.Screen.F_PrepayAppl!lvwAppl.listviewcontents)
+F.Intrinsic.String.Split(V.Local.sTempKey,"$@$",V.Local.sTempKey)
+F.Intrinsic.Control.For(V.Local.i,1,V.Screen.F_PrepayAppl!lvwAppl.ListItemCount,1)
+	F.Intrinsic.Math.Sub(V.Local.i,1,V.Local.iindex)
+	F.Intrinsic.String.Split(V.Local.sTempKey(V.Local.iindex),"*!*",V.Local.sRow)
+	F.Intrinsic.String.Concat("P",V.Screen.F_PrepayAppl!txtPayID.Text,V.Local.sID)
+	'V.Local.sKey.Set(V.Screen.F_PrepayAppl!lvwAppl.ListItemKey(v.local.i))
+	F.Intrinsic.Control.If(V.Local.sID,=,V.Local.sRow(0).long)
+		Gui.F_PrepayAppl.lvwAppl.RemoveItem(V.Local.i)
+		F.Intrinsic.Control.ExitFor(V.Local.i)
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Next(V.Local.i)
+
+F.Intrinsic.Control.CallSub("Clear")
+
+Program.Sub.Delete.End
+
+Program.Sub.Save.Start
+V.Local.iID.Declare(Long)
+V.Local.sAmt.Declare(String)
+V.Local.bFound.Declare(Boolean)
+V.Local.i.Declare(Long)
+V.Local.sKey.Declare(String)
+V.Local.sTempKey.Declare(String)
+V.Local.sDate.Declare(String)
+V.Local.sRow.Declare(String)
+V.Local.iindex.Declare(long)
+
+'Gui.F_PrepayAppl.lvwAppl.AddListItem(V.Local.sKey,V.Local.iID.String)
+V.Local.bFound.Set(False)
+
+F.Intrinsic.Control.If(V.Screen.F_PrepayAppl!txtApplAmt.Text,<>,"")
+	V.Local.sAmt.Set(V.Screen.F_PrepayAppl!txtApplAmt.Text)
+	F.Intrinsic.Control.If(V.Local.sAmt,=,"0")
+		F.Intrinsic.Control.ExitSub
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Math.ConvertToLong(V.Screen.F_PrepayAppl!txtPayID.Text,V.Local.iID)
+		F.Intrinsic.String.Concat("P",V.Local.iid.String,V.Local.sKey)
+		V.Local.sTempKey.Set(V.Screen.F_PrepayAppl!lvwAppl.listviewcontents)
+		F.Intrinsic.String.Split(V.Local.sTempKey,"$@$",V.Local.sTempKey)
+		F.Intrinsic.Control.For(V.Local.i,1,V.Screen.F_PrepayAppl!lvwAppl.ListItemCount,1)
+			F.Intrinsic.Math.Sub(V.Local.i,1,V.Local.iindex)
+			F.Intrinsic.String.Split(V.Local.sTempKey(V.Local.iindex),"*!*",V.Local.sRow)
+			'F.Intrinsic.String.Mid(V.Local.sTempKey,2,V.Local.sTempKey)
+			F.Intrinsic.Control.If(V.Local.sRow(0).Long,=,V.Local.iID)
+				V.Local.bFound.Set(True)
+				F.Intrinsic.Control.ExitFor(V.Local.i)
+			F.Intrinsic.Control.Else
+				V.Local.bFound.Set(False)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Next(V.Local.i)
+
+		F.Intrinsic.Control.If(V.Local.bFound,=,False)
+			Gui.F_PrepayAppl.lvwAppl.AddListItem(V.Local.sKey,V.Local.iID.String)
+			F.Intrinsic.String.Format(V.Screen.F_PrepayAppl!dtpPrePay.value,"mm/dd/yyyy",V.Local.sDate)
+			Gui.F_PrepayAppl.lvwAppl.SetListItemSubItemText(V.Local.sKey,1,V.Local.sDate)
+			Gui.F_PrepayAppl.lvwAppl.SetListItemSubItemText(V.Local.sKey,2,V.Screen.F_PrepayAppl!cboType.Text)
+		F.Intrinsic.Control.EndIf
+
+		'F.Intrinsic.String.Concat("$",V.Screen.F_PrepayAppl!txtApplAmt.Text,V.Local.sAmt)
+		F.Intrinsic.String.Format(V.Screen.F_PrepayAppl!txtApplAmt.Text,"$0.00",V.Local.sAmt)
+		Gui.F_PrepayAppl.lvwAppl.SetListItemSubItemText(V.Local.sKey,3,V.Local.sAmt)
+
+		F.Intrinsic.Control.CallSub("Clear")
+	F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.Else
+	F.Intrinsic.Control.ExitSub
+F.Intrinsic.Control.EndIf
+
+Program.Sub.Save.End
+
+Program.Sub.Apply.Start
+V.Local.i.Declare(Long)
+V.Local.iID.Declare(Long)
+V.Local.sSQL.Declare(String)
+V.Local.fAmt.Declare(Float)
+V.Local.fBal.Declare(Float)
+V.Local.fApplAmt.Declare(Float)
+V.Local.sLineInfo.Declare(String)
+V.Local.sAmt.Declare(String)
+V.Local.sID.Declare(String)
+V.Local.iUBound.Declare(Long)
+V.Local.sTempKey.Declare(String)
+V.Local.sRow.Declare(String)
+
+F.Intrinsic.Math.Sub(V.Screen.F_PrepayAppl!lvwAppl.ListItemCount,1,V.Local.iUBound)
+V.Local.sTempKey.Set(V.Screen.F_PrepayAppl!lvwAppl.listviewcontents)
+F.Intrinsic.String.Split(V.Local.sTempKey,"$@$",V.Local.sTempKey)
+
+F.Intrinsic.Control.For(V.Local.i,0,V.Local.iUbound,1)
+	F.Intrinsic.String.Split(V.Local.sTempKey(V.Local.i),"*!*",V.Local.sRow)
+	V.Local.sID.Set(V.Local.sRow(0))
+	F.Intrinsic.String.Split(V.Screen.F_PrepayAppl!lvwAppl.ListItemTextExtended(v.local.i),"*!*",V.Local.sLineInfo)
+	'F.Intrinsic.String.Mid(V.Screen.F_PrepayAppl!lvwAppl.ListItemKey(variable.local.i),2,V.Local.sID)
+
+	F.Intrinsic.String.Concat("Select * from ATG_Prepay_Applied where OrderNo='",V.Global.sOrder,"' and Invoice='",V.Global.sInvoice,"' and PrepayID=",V.Local.sID,V.Local.sSQL)
+	F.ODBC.Connection!con.OpenRecordsetRW("rst",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.Odbc.con!rst.EOF,=,True)
+		F.ODBC.con!rst.AddNew
+		F.ODBC.con!rst.Set!OrderNo(V.Global.sOrder)
+		F.ODBC.con!rst.Set!PrepayID(V.Local.sID.Long)
+		F.ODBC.con!rst.Set!Invoice(V.Global.sInvoice)
+		F.ODBC.con!rst.Set!Posted(False)
+	F.Intrinsic.Control.EndIf
+	F.ODBC.con!rst.Set!Invoice_Date(V.Ambient.Now)
+	F.Intrinsic.String.Mid(V.Local.sLineInfo(3),2,V.Local.sAmt)
+	F.ODBC.con!rst.Set!Applied_Amt(V.Local.sAmt.Float)
+	F.ODBC.con!rst.Set!GSUser(V.Caller.User)
+	F.ODBC.con!rst.Update
+	F.ODBC.con!rst.Close
+
+	F.Intrinsic.String.Concat("Select * from ATG_Prepay where OrderNo='",V.Global.sOrder,"' and PrepayID=",V.Local.sID,V.Local.sSQL)
+	F.ODBC.Connection!con.OpenRecordsetRW("rst",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.Odbc.con!rst.EOF,=,False)
+		F.Intrinsic.Control.CallSub("GetBalance","sPrepayID",V.Local.sID)
+		F.Intrinsic.Control.If(V.Args.fBal,<>,0)
+			F.Intrinsic.Math.ConvertToFloat(V.Odbc.con!rst.FieldVal!Amount,V.Local.fAmt)
+			F.Intrinsic.Math.Sub(V.Local.fAmt,V.Args.fBal,V.Local.fBal)
+		F.Intrinsic.Control.Else
+			V.Local.fBal.Set(V.Local.fAmt)
+		F.Intrinsic.Control.EndIf
+
+		F.Intrinsic.Control.If(V.Local.fApplAmt,=,V.Local.fBal)
+			F.ODBC.con!rst.Set!Payment_Applied("Y")
+		F.Intrinsic.Control.Else
+			F.ODBC.con!rst.Set!Payment_Applied("P")
+		F.Intrinsic.Control.EndIf
+		F.ODBC.con!rst.Update
+	F.Intrinsic.Control.EndIf
+	F.ODBC.con!rst.Close
+F.Intrinsic.Control.Next(V.Local.i)
+
+F.Intrinsic.Control.CallSub("ProgramEnd")
+
+Program.Sub.Apply.End
+
+Program.Sub.Clear.Start
+'Gui.F_PrepayAppl.lvwAppl.ClearItems
+Gui.F_PrepayAppl.txtApplAmt.Text("")
+Gui.F_PrepayAppl.txtPayID.Text("")
+Gui.F_PrepayAppl.dtpPrePay.Value(V.Ambient.Date)
+Gui.F_PrepayAppl.cboType.ListIndex(-1)
+Gui.F_PrepayAppl.txtOrigAmt.Text("")
+Gui.F_PrepayAppl.txtRemBal.Text("")
+Gui.F_PrepayAppl.chkFull.Value(0)
+
+Program.Sub.Clear.End
+
+Program.Sub.Browse.Start
+Variable.Local.Sret.Declare(String)
+Variable.Local.Stitles.Declare(String)
+Variable.Local.Iwidths.Declare(Long)
+V.Local.sFormat.Declare(String)
+V.Local.sBal.Declare(String)
+V.Local.fBal.Declare(Float)
+V.Local.sAmt.Declare(String)
+V.Local.sType.Declare(String)
+V.Local.sSQL.Declare(String)
+
+Function.Intrinsic.String.Split("ID*!*Applied*!*Payment Date*!*Type*!*Original Amount","*!*",Variable.Local.Stitles)
+Function.Intrinsic.String.Split("500*!*1000*!*2100*!*1500*!*1500","*!*",Variable.Local.Iwidths)
+F.Intrinsic.String.Split("*!**!**!**!*0.00","*!*",V.Local.sFormat)
+
+F.Intrinsic.String.Concat("Select  PrepayID,Payment_Applied,Payment_Date,Type,Amount From ATG_Prepay where Deleted<>1 and OrderNo='",V.Global.sOrder,"' order by PrepayID",V.Local.sSQL)
+Function.Intrinsic.Ui.Browser("Select a prepayment","con",V.Local.sSQL,Variable.Local.Stitles,Variable.Local.Iwidths,7200,6000,V.Local.sFormat,"",Variable.Local.Sret)
+
+Function.Intrinsic.Control.If(Variable.Local.Sret,"=","***CANCEL***")
+	Function.Intrinsic.Ui.Msgbox("No prepayment was selected!")
+Function.Intrinsic.Control.Elseif(Variable.Local.Sret,<>,"***CANCEL***")
+ 	Function.Intrinsic.String.Split(Variable.Local.Sret,"*!*",Variable.Local.Sret)
+	Gui.F_PrepayAppl.txtPayID.Text(V.Local.Sret(0))
+	Gui.F_PrepayAppl.dtpPrePay.Value(V.Local.Sret(2))
+	'Gui.F_PrepayAppl.cboType.Text(V.Local.Sret(3))
+	F.Intrinsic.String.RTrim(V.Local.Sret(3),V.Local.sType)
+	F.Intrinsic.Control.If(V.Local.sType,=,"Cash")
+		Gui.F_PrepayAppl.cboType.ListIndex(0)
+	F.Intrinsic.Control.ElseIf(V.Local.sType,=,"Check")
+		Gui.F_PrepayAppl.cboType.ListIndex(1)
+	F.Intrinsic.Control.ElseIf(V.Local.sType,=,"Credit Card")
+		Gui.F_PrepayAppl.cboType.ListIndex(2)
+	F.Intrinsic.Control.Else
+		Gui.F_PrepayAppl.cboType.ListIndex(-1)
+	F.Intrinsic.Control.EndIf
+	'F.Intrinsic.String.ConvertToString(V.Local.Sret(4),V.Local.sAmt)
+	F.Intrinsic.String.Format(V.Local.Sret(4),"$0.00",V.Local.sAmt)
+	'F.Intrinsic.String.Concat("$",V.Local.Sret(4),V.Local.sAmt)
+	Gui.F_PrepayAppl.txtOrigAmt.Text(V.Local.sAmt)
+	F.Intrinsic.Control.CallSub("GetBalance","sPrepayID",V.Local.Sret(0))
+	F.Intrinsic.Control.If(V.Args.fBal,=,0)
+		V.Local.sBal.Set(V.Local.sAmt)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Math.Sub(V.Local.sret(4).Float,V.Args.fBal,V.Local.fBal)
+		F.Intrinsic.String.Format(V.Local.fBal,"$0.00",V.Local.sBal)
+		'F.Intrinsic.String.Concat("$",V.Local.sBal,V.Local.sBal)
+	F.Intrinsic.Control.EndIf
+	Gui.F_PrepayAppl.txtRemBal.Text(V.Local.sBal)
+	Gui.F_PrepayAppl.txtApplAmt.Text(V.Local.fBal.String)
+	Gui.F_PrepayAppl.chkFull.Value(1)
+Function.Intrinsic.Control.Endif
+
+Program.Sub.Browse.End
+
+Program.Sub.GetBalance.Start
+V.Local.sSQL.Declare(String)
+V.Local.fRunning.Declare(Float)
+V.Local.fRunning.Set(0.00)
+
+F.Intrinsic.String.Concat("Select * from ATG_Prepay_Applied where OrderNo='",V.Global.sOrder,"' and PrepayID=",Variable.Args.sPrepayID," order by Invoice",V.Local.sSQL)
+F.ODBC.Connection!con.OpenRecordsetRO("rstPA",V.Local.sSQL)
+F.Intrinsic.Control.DoUntil(V.Odbc.con!rstPA.EOF,=,True)
+	F.Intrinsic.Math.Add(V.Local.fRunning,V.Odbc.con!rstPA.FieldVal!Applied_Amt,V.Local.fRunning)
+	F.ODBC.con!rstPA.MoveNext
+F.Intrinsic.Control.Loop
+
+F.Intrinsic.Variable.AddRV("fBal",V.Local.fRunning)
+F.ODBC.con!rstPA.Close
+
+Program.Sub.GetBalance.End
+
+Program.Sub.CheckClick.Start
+V.Local.sAmt.Declare(String)
+V.Local.iLen.Declare(Long)
+
+F.Intrinsic.Control.If(V.Screen.F_PrepayAppl!chkFull.Value,=,0)
+	Gui.F_PrepayAppl.txtApplAmt.Text("")
+F.Intrinsic.Control.ElseIf(V.Screen.F_PrepayAppl!chkFull.Value,=,1)
+	V.Local.sAmt.Set(V.Screen.F_PrepayAppl!txtRemBal.Text)
+	F.Intrinsic.Math.Sub(V.Local.sAmt.Length,1,V.Local.iLen)
+	F.Intrinsic.String.Right(V.Local.sAmt,V.Local.iLen,V.Local.sAmt)
+	Gui.F_PrepayAppl.txtApplAmt.Text(V.Local.sAmt)
+F.Intrinsic.Control.EndIf
+
+Program.Sub.CheckClick.End
+
+Program.Sub.LoadList.Start
+V.Local.sSQL.Declare(String)
+V.Local.sKey.Declare(String)
+V.Local.iID.Declare(String)
+V.Local.sAmt.Declare(String)
+V.Local.sDate.Declare(String)
+V.Local.sType.Declare(String)
+
+F.Intrinsic.String.Concat("Select * from ATG_Prepay_Applied where OrderNo='",V.Global.sOrder,"' and Invoice='",V.Global.sInvoice,"' and Posted=0 order by PrepayID",V.Local.sSQL)
+F.ODBC.Connection!con.OpenRecordsetRO("rst",V.Local.sSQL)
+F.Intrinsic.Control.DoUntil(V.Odbc.con!rst.EOF,=,True)
+	F.Intrinsic.String.Concat("Select * from ATG_Prepay where OrderNo='",V.Global.sOrder,"' and PrepayID=",V.Odbc.con!rst.FieldVal!PrepayID,V.Local.sSQL)
+	F.ODBC.Connection!con.OpenRecordsetRO("rstP",V.Local.sSQL)
+	F.Intrinsic.Control.If(V.Odbc.con!rstP.EOF,=,False)
+		V.Local.iID.Set(V.Odbc.con!rst.FieldVal!PrepayID)
+		F.Intrinsic.String.Concat("P",V.Local.iid.String,V.Local.sKey)
+		Gui.F_PrepayAppl.lvwAppl.AddListItem(V.Local.sKey,V.Local.iID.String)
+		F.Intrinsic.String.Format(V.Odbc.con!rstP.FieldVal!Payment_Date,"mm/dd/yyyy",V.Local.sDate)
+		Gui.F_PrepayAppl.lvwAppl.SetListItemSubItemText(V.Local.sKey,1,V.Local.sDate)
+		F.Intrinsic.String.Trim(V.Odbc.con!rstP.FieldVal!Type,V.Local.sType)
+		Gui.F_PrepayAppl.lvwAppl.SetListItemSubItemText(V.Local.sKey,2,V.Local.sType)
+		F.Intrinsic.String.Format(V.Odbc.con!rst.FieldVal!Applied_Amt,"$0.00",V.Local.sAmt)
+		Gui.F_PrepayAppl.lvwAppl.SetListItemSubItemText(V.Local.sKey,3,V.Local.sAmt)
+	F.Intrinsic.Control.EndIf
+	F.ODBC.con!rstP.Close
+	F.ODBC.con!rst.MoveNext
+F.Intrinsic.Control.loop
+F.ODBC.con!rst.Close
+
+
+
+Program.Sub.LoadList.End
+
+
