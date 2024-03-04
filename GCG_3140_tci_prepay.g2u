@@ -1,0 +1,716 @@
+Program.Sub.ScreenSU.Start
+gui.F_TCI..create
+gui.F_TCI..caption("Prepayments")
+gui.F_TCI..size(7710,7890)
+gui.F_TCI..position(0,0)
+gui.F_TCI..event(unload,ProgramEnd)
+gui.F_TCI..alwaysontop(False)
+gui.F_TCI..fontname("arial")
+gui.F_TCI..fontsize(8)
+gui.F_TCI..forecolor(0)
+gui.F_TCI..fontstyle(False,False,False,False,False)
+gui.F_TCI..BackColor(-2147483633)
+gui.F_TCI..controlbox(True)
+gui.F_TCI..maxbutton(False)
+gui.F_TCI..minbutton(True)
+gui.F_TCI..mousepointer(0)
+gui.F_TCI..moveable(True)
+gui.F_TCI..sizeable(False)
+gui.F_TCI..ShowInTaskBar(True)
+gui.F_TCI..titlebar(True)
+gui.F_TCI.frmPrePay.create(frame)
+gui.F_TCI.frmPrePay.caption("Prepayment")
+gui.F_TCI.frmPrePay.size(7050,3390)
+gui.F_TCI.frmPrePay.position(200,85)
+gui.F_TCI.frmPrePay.visible(True)
+gui.F_TCI.frmPrePay.fontname("arial")
+gui.F_TCI.frmPrePay.fontsize(8)
+gui.F_TCI.txtAmount.create(textbox,"",True,1320,315,0,200,1300,True,0,arial,8,-2147483643,1)
+gui.F_TCI.txtAmount.parent("frmprepay")
+gui.F_TCI.cboType.create(combobox)
+gui.F_TCI.cboType.text("")
+gui.F_TCI.cboType.visible(True)
+gui.F_TCI.cboType.size(1890,330)
+gui.F_TCI.cboType.zorder(0)
+gui.F_TCI.cboType.position(5000,600)
+gui.F_TCI.cboType.enabled(True)
+gui.F_TCI.cboType.parent("frmprepay")
+gui.F_TCI.cboType.fontname("arial")
+gui.F_TCI.cboType.fontsize(8)
+gui.F_TCI.cboType.event(click,TypeClick)
+gui.F_TCI.txtNumber.create(textbox,"",True,2340,315,0,200,1955,True,0,arial,8,-2147483643,1)
+gui.F_TCI.txtNumber.parent("frmprepay")
+gui.F_TCI.txtApproval.create(textbox,"",True,1320,315,0,4400,1955,True,0,arial,8,-2147483643,1)
+gui.F_TCI.txtApproval.parent("frmprepay")
+gui.F_TCI.lblOrigAmount.create(label,"Prepayment Amount",True,1515,270,1,210,1030,True,0,arial,8,-2147483633,0)
+gui.F_TCI.lblOrigAmount.parent("frmprepay")
+gui.F_TCI.lblType.create(label,"Type",True,1095,270,1,5000,345,True,0,arial,8,-2147483633,0)
+gui.F_TCI.lblType.parent("frmprepay")
+gui.F_TCI.lblNum.create(label,"Credit Card Number",True,2265,255,1,200,1700,True,0,arial,8,0,0)
+gui.F_TCI.lblNum.parent("frmprepay")
+gui.F_TCI.lblApproval.create(label,"Approval Code",True,1095,255,1,4400,1700,True,0,arial,8,0,0)
+gui.F_TCI.lblApproval.parent("frmprepay")
+gui.F_TCI.lblExpDate.create(label,"Expiration Date",True,1095,255,1,2700,1700,True,0,arial,8,0,0)
+gui.F_TCI.lblExpDate.parent("frmprepay")
+gui.F_TCI.dtpPayment.create(datepicker)
+gui.F_TCI.dtpPayment.visible(True)
+gui.F_TCI.dtpPayment.size(1320,315)
+gui.F_TCI.dtpPayment.zorder(0)
+gui.F_TCI.dtpPayment.position(3400,600)
+gui.F_TCI.dtpPayment.enabled(False)
+gui.F_TCI.dtpPayment.parent("frmprepay")
+gui.F_TCI.lblPrepayDate.create(label,"Payment Date",True,1095,255,1,3400,345,True,0,arial,8,-2147483633,0)
+gui.F_TCI.lblPrepayDate.parent("frmprepay")
+gui.F_TCI.lvwList.create(listview)
+gui.F_TCI.lvwList.view(3)
+gui.F_TCI.lvwList.addlistviewcolumn("ID",405,0)
+gui.F_TCI.lvwList.addlistviewcolumn("Applied",735,0)
+gui.F_TCI.lvwList.addlistviewcolumn("Payment Date",1550,0)
+gui.F_TCI.lvwList.addlistviewcolumn("Type",1200,0)
+gui.F_TCI.lvwList.addlistviewcolumn("Amount",1550,0)
+gui.F_TCI.lvwList.addlistviewcolumn("Balance",1540,0)
+gui.F_TCI.lvwList.visible(True)
+gui.F_TCI.lvwList.size(7050,2955)
+gui.F_TCI.lvwList.zorder(0)
+gui.F_TCI.lvwList.position(200,3600)
+gui.F_TCI.lvwList.enabled(True)
+gui.F_TCI.lvwList.fontname("arial")
+gui.F_TCI.lvwList.fontsize(8)
+gui.F_TCI.lvwList.event(itemclick,LoadPayment)
+gui.F_TCI.cmdSave.create(button)
+gui.F_TCI.cmdSave.caption("Save")
+gui.F_TCI.cmdSave.visible(True)
+gui.F_TCI.cmdSave.size(975,375)
+gui.F_TCI.cmdSave.zorder(0)
+gui.F_TCI.cmdSave.position(5885,1620)
+gui.F_TCI.cmdSave.enabled(False)
+gui.F_TCI.cmdSave.parent("frmprepay")
+gui.F_TCI.cmdSave.fontname("arial")
+gui.F_TCI.cmdSave.fontsize(8)
+gui.F_TCI.cmdSave.event(click,Save)
+gui.F_TCI.cmdDel.create(button)
+gui.F_TCI.cmdDel.caption("Delete")
+gui.F_TCI.cmdDel.visible(True)
+gui.F_TCI.cmdDel.size(975,375)
+gui.F_TCI.cmdDel.zorder(0)
+gui.F_TCI.cmdDel.position(5900,2100)
+gui.F_TCI.cmdDel.enabled(False)
+gui.F_TCI.cmdDel.parent("frmprepay")
+gui.F_TCI.cmdDel.fontname("arial")
+gui.F_TCI.cmdDel.fontsize(8)
+gui.F_TCI.cmdDel.event(click,DeletePayment)
+gui.F_TCI.lblBalance.create(label,"$ Due",True,1095,255,1,5900,6600,True,0,arial,8,-2147483633,0)
+gui.F_TCI.lblTotal.create(label,"Net Order Total",True,1185,255,1,4490,6600,True,0,arial,8,-2147483633,0)
+gui.F_TCI.cboMonth.create(combobox)
+gui.F_TCI.cboMonth.text("")
+gui.F_TCI.cboMonth.visible(True)
+gui.F_TCI.cboMonth.size(665,330)
+gui.F_TCI.cboMonth.zorder(0)
+gui.F_TCI.cboMonth.position(2700,1955)
+gui.F_TCI.cboMonth.enabled(True)
+gui.F_TCI.cboMonth.parent("frmprepay")
+gui.F_TCI.cboMonth.fontname("arial")
+gui.F_TCI.cboMonth.fontsize(8)
+gui.F_TCI.cboYear.create(combobox)
+gui.F_TCI.cboYear.text("")
+gui.F_TCI.cboYear.visible(True)
+gui.F_TCI.cboYear.size(870,330)
+gui.F_TCI.cboYear.zorder(0)
+gui.F_TCI.cboYear.position(3430,1955)
+gui.F_TCI.cboYear.enabled(True)
+gui.F_TCI.cboYear.parent("frmprepay")
+gui.F_TCI.cboYear.fontname("arial")
+gui.F_TCI.cboYear.fontsize(8)
+gui.F_TCI.cmdNew.create(button)
+gui.F_TCI.cmdNew.caption("New")
+gui.F_TCI.cmdNew.visible(True)
+gui.F_TCI.cmdNew.size(975,375)
+gui.F_TCI.cmdNew.zorder(0)
+gui.F_TCI.cmdNew.position(5900,1100)
+gui.F_TCI.cmdNew.enabled(False)
+gui.F_TCI.cmdNew.parent("frmprepay")
+gui.F_TCI.cmdNew.fontname("arial")
+gui.F_TCI.cmdNew.fontsize(8)
+gui.F_TCI.cmdNew.event(click,NewPayment)
+gui.F_TCI.txtTotal.create(textbox,"",True,1215,315,0,4485,6790,False,0,arial,8,-2147483643,1)
+gui.F_TCI.txtBalance.create(textbox,"",True,1215,315,0,5900,6800,False,0,arial,8,-2147483643,1)
+gui.F_TCI.mltxtNote.create(textboxm)
+gui.F_TCI.mltxtNote.text("")
+gui.F_TCI.mltxtNote.visible(True)
+gui.F_TCI.mltxtNote.size(5520,615)
+gui.F_TCI.mltxtNote.zorder(0)
+gui.F_TCI.mltxtNote.position(200,2600)
+gui.F_TCI.mltxtNote.enabled(True)
+gui.F_TCI.mltxtNote.alignment(0)
+gui.F_TCI.mltxtNote.parent("frmprepay")
+gui.F_TCI.mltxtNote.fontname("arial")
+gui.F_TCI.mltxtNote.fontsize(8)
+gui.F_TCI.lblNote.create(label,"Note",True,1095,255,1,200,2345,True,0,arial,8,0,0)
+gui.F_TCI.lblNote.parent("frmprepay")
+gui.F_TCI.txtOrder.create(textbox,"",True,1320,315,0,200,600,False,0,arial,8,-2147483643,1)
+gui.F_TCI.txtOrder.parent("frmprepay")
+gui.F_TCI.lblOrder.create(label,"Order",True,1095,255,1,200,345,True,0,arial,8,0,0)
+gui.F_TCI.lblOrder.parent("frmprepay")
+gui.F_TCI.txtPayID.create(textbox,"",True,1320,315,0,1800,600,False,0,arial,8,-2147483643,1)
+gui.F_TCI.txtPayID.parent("frmprepay")
+gui.F_TCI.lblPrePay.create(label,"Prepayment ID",True,1095,255,1,1800,360,True,0,arial,8,0,0)
+gui.F_TCI.lblPrePay.parent("frmprepay")
+gui.F_TCI.txtRemAmount.create(textbox,"",True,1320,315,0,1800,1300,False,0,arial,8,-2147483643,1)
+gui.F_TCI.txtRemAmount.parent("frmprepay")
+gui.F_TCI.lblPBalance.create(label,"Prepayment Balance",True,1545,255,1,1800,1030,True,0,arial,8,-2147483633,0)
+gui.F_TCI.lblPBalance.parent("frmprepay")
+gui.F_TCI.cmdDetail.create(button)
+gui.F_TCI.cmdDetail.caption("Detail")
+gui.F_TCI.cmdDetail.visible(True)
+gui.F_TCI.cmdDetail.size(975,375)
+gui.F_TCI.cmdDetail.zorder(0)
+gui.F_TCI.cmdDetail.position(5900,2600)
+gui.F_TCI.cmdDetail.enabled(False)
+gui.F_TCI.cmdDetail.parent("frmprepay")
+gui.F_TCI.cmdDetail.fontname("arial")
+gui.F_TCI.cmdDetail.fontsize(8)
+gui.F_TCI.cmdDetail.event(click,ShowDetail)
+gui.F_TCI.txtInvoicedAmt.create(textbox,"",False,1320,300,0,3400,1300,True,0,Arial,8,-2147483643,1)
+gui.F_TCI.txtInvoicedAmt.parent("frmprepay")
+gui.F_TCI.lblInvoicedAmt.create(label,"Invoiced Amount",False,1215,255,1,3400,1045,True,0,Arial,8,-2147483633,0)
+gui.F_TCI.lblInvoicedAmt.parent("frmprepay")
+
+
+gui.F_Detail..create
+gui.F_Detail..caption("Prepayment Detail")
+gui.F_Detail..size(5055,3195)
+gui.F_Detail..position(0,0)
+gui.F_Detail..event(unload,CloseDetail)
+gui.F_Detail..alwaysontop(False)
+gui.F_Detail..fontname("arial")
+gui.F_Detail..fontsize(8)
+gui.F_Detail..forecolor(0)
+gui.F_Detail..fontstyle(False,False,False,False,False)
+gui.F_Detail..BackColor(-2147483633)
+gui.F_Detail..controlbox(True)
+gui.F_Detail..maxbutton(False)
+gui.F_Detail..minbutton(False)
+gui.F_Detail..mousepointer(0)
+gui.F_Detail..moveable(True)
+gui.F_Detail..sizeable(False)
+gui.F_Detail..ShowInTaskBar(False)
+gui.F_Detail..titlebar(True)
+gui.F_Detail.lvwDetail.create(listview)
+gui.F_Detail.lvwDetail.view(3)
+gui.F_Detail.lvwDetail.addlistviewcolumn("Invoice",1200,0)
+gui.F_Detail.lvwDetail.addlistviewcolumn("Invoice Date",1600,0)
+gui.F_Detail.lvwDetail.addlistviewcolumn("Amount Applied",1600,0)
+gui.F_Detail.lvwDetail.visible(True)
+gui.F_Detail.lvwDetail.size(4485,2265)
+gui.F_Detail.lvwDetail.zorder(0)
+gui.F_Detail.lvwDetail.position(200,200)
+gui.F_Detail.lvwDetail.enabled(True)
+gui.F_Detail.lvwDetail.fontname("arial")
+gui.F_Detail.lvwDetail.fontsize(8)
+
+
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Variable.Global.sOrder.Declare(String)
+Variable.Global.fTotal.Declare(Float)
+Variable.Global.sTotal.Declare(String)
+Variable.Global.sInvoicedAmt.Declare(String,"0")
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.If(V.Caller.Hook,<,12000)
+	V.Global.sOrder.Set(V.Passed.000003)
+	V.Global.sTotal.Set(V.Passed.008000)
+F.Intrinsic.Control.Else
+	V.Global.sOrder.Set(V.Passed.009001)
+	V.Global.sTotal.Set(V.Passed.009003)
+F.Intrinsic.Control.EndIf
+F.Intrinsic.Control.If(V.Global.sOrder,<>,"0000000")
+	F.ODBC.Connection!con.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+	Function.Intrinsic.Control.CallSub("FillCombos")
+	'Function.Intrinsic.Control.CallSub("LoadFakeData")
+	'Function.Intrinsic.Control.CallSub("LoadScreen","sOrder",Variable.Passed.000003,"fBal",Variable.Passed.000000)
+	F.Intrinsic.String.LPad(V.Global.sOrder,"0",7,V.Global.sOrder)
+	
+	'V.Global.sTotal.Set("3000.00")
+	F.Intrinsic.Math.ConvertToFloat(V.Global.sTotal,V.Global.fTotal)
+
+	Function.Intrinsic.Control.CallSub("LoadScreen")
+	Gui.F_TCI..Show
+F.Intrinsic.Control.Else
+	F.Intrinsic.Control.End
+F.Intrinsic.Control.EndIf
+
+
+Program.Sub.Main.End
+
+Program.Sub.ProgramEnd.Start
+Function.Intrinsic.Control.If(Variable.Odbc.Con.State,=,1)
+	Function.Odbc.Connection!Con.Close
+Function.Intrinsic.Control.Endif
+Function.Intrinsic.Control.End
+
+Program.Sub.ProgramEnd.End
+
+Program.Sub.FillCombos.Start
+Variable.Local.i.Declare(Long)
+Variable.Local.iMth.Declare(Long)
+Variable.Local.sYr.Declare(String)
+Variable.Local.dateYear.Declare(Date)
+
+Gui.F_TCI.cboType.AddItem("Cash",0)
+Gui.F_TCI.cboType.AddItem("Check",1)
+Gui.F_TCI.cboType.AddItem("Credit Card",2)
+
+Function.Intrinsic.Control.For(Variable.Local.i,0,11,1)
+	Function.Intrinsic.Math.Add(Variable.Local.i,1,Variable.Local.iMth)
+	Gui.F_TCI.cboMonth.AddItem(Variable.Local.iMth,Variable.Local.i)
+Function.Intrinsic.Control.Next(Variable.Local.i)
+
+'F.Intrinsic.Debug.Stopslack
+Function.Intrinsic.Control.For(Variable.Local.i,0,8,1)
+	Function.Intrinsic.Date.DateAdd("yyyy",Variable.Local.i,Variable.Ambient.Date,Variable.Local.dateYear)
+	Function.Intrinsic.String.Format(Variable.Local.dateYear,"yyyy",Variable.Local.sYr)
+	Gui.F_TCI.cboYear.AddItem(Variable.Local.sYr,Variable.Local.i)
+Function.Intrinsic.Control.Next(Variable.Local.i)
+
+
+
+Program.Sub.FillCombos.End
+
+Program.Sub.CloseDetail.Start
+Gui.F_Detail..Visible(False)
+
+
+Program.Sub.CloseDetail.End
+
+Program.Sub.ShowDetail.Start
+Gui.F_Detail..Show
+Function.Intrinsic.Control.CallSub("LoadDetail","sOrder",Variable.Screen.F_TCI!txtOrder.Text,"sPayID",Variable.Screen.F_TCI!txtPayID.Text)
+
+Program.Sub.ShowDetail.End
+
+Program.Sub.LoadDetail.Start
+V.Local.sSQL.Declare(String)
+V.Local.sAmt.Declare(String)
+V.Local.sDate.Declare(String)
+
+Gui.F_Detail.lvwDetail.ClearItems
+
+F.Intrinsic.String.Concat("Select * from ATG_Prepay_Applied where OrderNo='",V.Global.sOrder,"' and PrepayID=",V.Screen.F_TCI!txtPayID.Text," order by Invoice",V.Local.sSQL)
+F.ODBC.Connection!con.OpenRecordsetRO("rstPA",V.Local.sSQL)
+F.Intrinsic.Control.DoUntil(V.Odbc.con!rstPA.EOF,=,True)
+	Gui.F_Detail.lvwDetail.AddListItem(V.Odbc.con!rstPA.FieldVal!Invoice,V.Odbc.con!rstPA.FieldVal!Invoice)
+	F.Intrinsic.String.Format(V.Odbc.con!rstPA.FieldVal!Invoice_Date,"mm/dd/yy hh:mm",V.Local.sDate)
+	Gui.F_Detail.lvwDetail.SetListItemSubItemText(V.Odbc.con!rstPA.FieldVal!Invoice,1,V.Local.sDate)
+	F.Intrinsic.String.format(V.Odbc.con!rstPA.FieldVal!Applied_Amt,"$0.00",V.Local.sAmt)
+	'F.Intrinsic.String.Concat("$",V.Local.sAmt,V.Local.sAmt)
+	Gui.F_Detail.lvwDetail.SetListItemSubItemText(V.Odbc.con!rstPA.FieldVal!Invoice,2,V.Local.sAmt)
+	F.ODBC.con!rstPA.MoveNext
+F.Intrinsic.Control.Loop
+
+F.ODBC.con!rstPA.Close
+
+
+Program.Sub.LoadDetail.End
+
+Program.Sub.LoadFakeData.Start
+Gui.F_TCI.txtOrder.Text("31830")
+Gui.F_TCI.txtPayID.Text("1")
+Gui.F_TCI.dtpPayment.Value(Variable.Ambient.Date)
+Gui.F_TCI.cboType.ListIndex(2)
+Gui.F_TCI.txtAmount.Text("$1000.00")
+Gui.F_TCI.txtRemAmount.Text("$400.00")
+Gui.F_TCI.txtNumber.Text("1234567809876543")
+Gui.F_TCI.cboMonth.ListIndex(3)
+Gui.F_TCI.cboYear.ListIndex(2)
+Gui.F_TCI.txtApproval.Text("897651234")
+Gui.F_TCI.mltxtNote.Text("This is a note about the prepayment.")
+Gui.F_TCI.cmdNew.Enabled(True)
+Gui.F_TCI.cmdSave.Enabled(True)
+Gui.F_TCI.cmdDel.Enabled(True)
+Gui.F_TCI.txtTotal.Text("$3000.00")
+Gui.F_TCI.txtBalance.Text("$1300.00")
+
+Gui.F_TCI.lvwList.AddListItem("1","1")
+Gui.F_TCI.lvwList.SetListItemSubItemText("1",1,"P")
+Gui.F_TCI.lvwList.SetListItemSubItemText("1",2,Variable.Ambient.Date)
+Gui.F_TCI.lvwList.SetListItemSubItemText("1",3,"Credit Card")
+Gui.F_TCI.lvwList.SetListItemSubItemText("1",4,"$1000.00")
+Gui.F_TCI.lvwList.SetListItemSubItemText("1",5,"$400.00")
+Gui.F_TCI.lvwList.AddListItem("2","2")
+Gui.F_TCI.lvwList.SetListItemSubItemText("2",1,"")
+Gui.F_TCI.lvwList.SetListItemSubItemText("2",2,Variable.Ambient.Date)
+Gui.F_TCI.lvwList.SetListItemSubItemText("2",3,"Cash")
+Gui.F_TCI.lvwList.SetListItemSubItemText("2",4,"$200.00")
+Gui.F_TCI.lvwList.SetListItemSubItemText("2",5,"$200.00")
+Gui.F_TCI.lvwList.AddListItem("3","3")
+Gui.F_TCI.lvwList.SetListItemSubItemText("3",1,"Y")
+Gui.F_TCI.lvwList.SetListItemSubItemText("3",2,Variable.Ambient.Date)
+Gui.F_TCI.lvwList.SetListItemSubItemText("3",3,"Check")
+Gui.F_TCI.lvwList.SetListItemSubItemText("3",4,"$500.00")
+Gui.F_TCI.lvwList.SetListItemSubItemText("3",5,"$0.00")
+
+Gui.F_Detail.lvwDetail.AddListItem("1","1")
+Gui.F_Detail.lvwDetail.SetListItemSubItemText("1",1,"10046")
+Gui.F_Detail.lvwDetail.SetListItemSubItemText("1",2,Variable.Ambient.Date)
+Gui.F_Detail.lvwDetail.SetListItemSubItemText("1",3,"$250.00")
+Gui.F_Detail.lvwDetail.AddListItem("2","2")
+Gui.F_Detail.lvwDetail.SetListItemSubItemText("2",1,"10059")
+Gui.F_Detail.lvwDetail.SetListItemSubItemText("2",2,Variable.Ambient.Date)
+Gui.F_Detail.lvwDetail.SetListItemSubItemText("2",3,"$350.00")
+
+Program.Sub.LoadFakeData.End
+
+Program.Sub.LoadList.Start
+V.Local.sSQL.Declare(String)
+V.Local.sAmt.Declare(String)
+V.Local.sBal.Declare(String)
+V.Local.sTotal.Declare(String)
+V.Local.sTotalBal.Declare(String)
+V.Local.fRunning.Declare(Float)
+V.local.fTotal.Declare(Float)
+V.Local.bResult.Declare(Boolean)
+V.Local.fBal.Declare(Float)
+V.Local.sDate.Declare(String)
+
+Gui.F_TCI.lvwList.ClearItems
+
+F.Intrinsic.String.Concat("Select * from ATG_Prepay where OrderNo='",V.Global.sOrder,"' and Deleted<> 1 order by PrepayID",V.Local.sSQL)
+F.ODBC.Connection!con.OpenRecordsetRW("rst",V.Local.sSQL)
+F.Intrinsic.Control.DoUntil(V.Odbc.con!rst.EOF,=,True)
+	Gui.F_TCI.lvwList.AddListItem(V.Odbc.con!rst.FieldVal!PrepayID,V.Odbc.con!rst.FieldVal!PrepayID)
+	F.Intrinsic.Variable.IsNull(V.Odbc.con!rst.FieldVal!Payment_Applied,V.Local.bResult)
+	F.Intrinsic.Control.If(V.Local.bResult,=,False)
+		Gui.F_TCI.lvwList.SetListItemSubItemText(V.Odbc.con!rst.FieldVal!PrepayID,1,V.Odbc.con!rst.FieldVal!Payment_Applied)
+	F.Intrinsic.Control.Else
+		Gui.F_TCI.lvwList.SetListItemSubItemText(V.Odbc.con!rst.FieldVal!PrepayID,1,"")
+	F.Intrinsic.Control.EndIf
+	F.Intrinsic.String.Format(V.Odbc.con!rst.FieldVal!Payment_Date,"mm/dd/yy hh:mm",V.Local.sDate)
+	Gui.F_TCI.lvwList.SetListItemSubItemText(V.Odbc.con!rst.FieldVal!PrepayID,2,V.Local.sDate)
+	Gui.F_TCI.lvwList.SetListItemSubItemText(V.Odbc.con!rst.FieldVal!PrepayID,3,V.Odbc.con!rst.FieldVal!Type)
+	F.Intrinsic.String.ConvertToString(V.Odbc.con!rst.FieldVal!Amount,V.Local.sAmt)
+	F.Intrinsic.String.Format(V.Local.sAmt,"$0.00",V.Local.sAmt)
+	'F.Intrinsic.String.Concat("$",V.Local.sAmt,V.Local.sAmt)
+	Gui.F_TCI.lvwList.SetListItemSubItemText(V.Odbc.con!rst.FieldVal!PrepayID,4,V.Local.sAmt)
+	F.Intrinsic.Control.CallSub("GetBalance","sPrepayID",V.Odbc.con!rst.FieldVal!PrepayID)
+	F.Intrinsic.Control.If(V.Args.fBal,=,0)
+		V.Local.sBal.Set(V.Local.sAmt)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Math.Sub(V.Odbc.con!rst.FieldVal!Amount,V.Args.fBal,V.Local.fBal)
+		F.Intrinsic.String.Format(V.Local.fBal,"$0.00",V.Local.sBal)
+		'F.Intrinsic.String.Concat("$",V.Local.sBal,V.Local.sBal)
+	F.Intrinsic.Control.EndIf
+	Gui.F_TCI.lvwList.SetListItemSubItemText(V.Odbc.con!rst.FieldVal!PrepayID,5,V.Local.sBal)
+	F.ODBC.con!rst.MoveNext
+F.Intrinsic.Control.Loop
+
+F.ODBC.con!rst.Close
+
+
+
+Program.Sub.LoadList.End
+
+Program.Sub.GetBalance.Start
+V.Local.sSQL.Declare(String)
+V.Local.fRunning.Declare(Float)
+V.Local.fRunning.Set(0.00)
+
+F.Intrinsic.String.Concat("Select * from ATG_Prepay_Applied where OrderNo='",V.Global.sOrder,"' and PrepayID=",Variable.Args.sPrepayID," order by Invoice",V.Local.sSQL)
+F.ODBC.Connection!con.OpenRecordsetRO("rstPA",V.Local.sSQL)
+F.Intrinsic.Control.DoUntil(V.Odbc.con!rstPA.EOF,=,True)
+	F.Intrinsic.Math.Add(V.Local.fRunning,V.Odbc.con!rstPA.FieldVal!Applied_Amt,V.Local.fRunning)
+	F.ODBC.con!rstPA.MoveNext
+F.Intrinsic.Control.Loop
+
+F.Intrinsic.Variable.AddRV("fBal",V.Local.fRunning)
+F.ODBC.con!rstPA.Close
+
+Program.Sub.GetBalance.End
+
+Program.Sub.LoadPayment.Start
+V.Local.sSQL.Declare(String)
+V.Local.iIndex.Declare(Long)
+V.Local.sType.Declare(String)
+V.Local.iYear.Declare(Long)
+V.Local.sCCNumber.Declare(String)
+
+Gui.F_TCI.cmdSave.Enabled(False)
+Gui.F_TCI.cmdDel.Enabled(True)
+Gui.F_TCI.cmdNew.Enabled(True)
+Gui.F_TCI.cmdDetail.Enabled(True)
+Gui.F_TCI.dtpPayment.Enabled(False)
+Gui.F_TCI.cboType.Enabled(False)
+Gui.F_TCI.txtAmount.Enabled(False)
+Gui.F_TCI.txtBalance.Enabled(False)
+Gui.F_TCI.mltxtNote.Enabled(True)
+
+F.Intrinsic.String.Concat("Select * from ATG_Prepay where OrderNo='",V.Global.sOrder,"' and PrepayID=",V.Screen.F_TCI!lvwList.SelectedItemText,V.Local.ssQL)
+F.ODBC.Connection!con.OpenRecordsetRW("rst",V.Local.sSQL)
+F.Intrinsic.Control.If(V.Odbc.con!rst.EOF,=,False)
+	Gui.F_TCI.txtPayID.Text(V.Odbc.con!rst.FieldVal!PrepayID)
+	Gui.F_TCI.dtpPayment.Value(V.Odbc.con!rst.FieldVal!Payment_Date)
+	Gui.F_TCI.cboType.Text(V.Odbc.con!rst.FieldVal!type)
+	V.Local.sType.Set(V.Odbc.con!rst.FieldVal!Type)
+	Gui.F_TCI.txtAmount.Text(V.Screen.F_TCI!lvwList.SelectedItemSubItem(4))
+	Gui.F_TCI.txtRemAmount.Text(V.Screen.F_TCI!lvwList.SelectedItemSubItem(5))
+	
+	F.Intrinsic.Control.If(V.Local.sType.RTrim,=,"Credit Card")
+		Gui.F_TCI.cboType.ListIndex(2)
+		'We have to decrypt the CCNo now.
+		F.Global.Encryption.Decrypt(V.Odbc.con!rst.FieldVal!CCNo, V.Local.sCCNumber)
+		Gui.F_TCI.txtNumber.Text(V.Local.sCCNumber)
+		Gui.F_TCI.txtApproval.Text(V.Odbc.con!rst.FieldVal!Approval_Code)
+		F.Intrinsic.Math.Sub(V.Odbc.con!rst.FieldVal!CC_Exp_Mnth,1,V.Local.iIndex)
+		Gui.F_TCI.cboMonth.ListIndex(V.Local.iIndex)
+		F.Intrinsic.Date.Year(V.Ambient.Date,V.Local.iYear)
+		F.Intrinsic.Math.Sub(V.Odbc.con!rst.FieldVal!CC_Exp_Yr,V.Local.iYear,V.Local.iIndex)
+		Gui.F_TCI.cboYear.ListIndex(V.Local.iIndex)
+		Gui.F_TCI.cboMonth.Enabled(True)
+		Gui.F_TCI.cboYear.Enabled(True)
+		Gui.F_TCI.txtApproval.Enabled(True)
+		Gui.F_TCI.txtNumber.Enabled(True)
+	F.Intrinsic.Control.ElseIf(V.Local.sType.RTrim,=,"Check")
+		Gui.F_TCI.cboType.ListIndex(1)
+		Gui.F_TCI.txtNumber.Text(V.Odbc.con!rst.FieldVal!CheckNo)
+		Gui.F_TCI.txtApproval.Text("")
+		Gui.F_TCI.cboMonth.ListIndex(-1)
+		Gui.F_TCI.cboYear.ListIndex(-1)
+		Gui.F_TCI.cboMonth.Enabled(False)
+		Gui.F_TCI.cboYear.Enabled(False)
+		Gui.F_TCI.txtApproval.Enabled(False)
+		Gui.F_TCI.txtNumber.Enabled(True)
+	F.Intrinsic.Control.ElseIf(V.Local.sType.RTrim,=,"Cash")
+		Gui.F_TCI.cboType.ListIndex(0)
+		Gui.F_TCI.txtNumber.Text("")
+		Gui.F_TCI.txtApproval.Text("")
+		Gui.F_TCI.cboMonth.ListIndex(-1)
+		Gui.F_TCI.cboYear.ListIndex(-1)
+		Gui.F_TCI.cboMonth.Enabled(False)
+		Gui.F_TCI.cboYear.Enabled(False)
+		Gui.F_TCI.txtApproval.Enabled(False)
+		Gui.F_TCI.txtNumber.Enabled(False)
+	F.Intrinsic.Control.Else
+		Gui.F_TCI.cboType.ListIndex(-1)
+		Gui.F_TCI.txtNumber.Text("")
+		Gui.F_TCI.txtApproval.Text("")
+		Gui.F_TCI.cboMonth.ListIndex(-1)
+		Gui.F_TCI.cboYear.ListIndex(-1)
+		Gui.F_TCI.cboMonth.Enabled(False)
+		Gui.F_TCI.cboYear.Enabled(False)
+		Gui.F_TCI.txtApproval.Enabled(False)
+		Gui.F_TCI.txtNumber.Enabled(False)
+	F.Intrinsic.Control.EndIf
+	Gui.F_TCI.mltxtNote.Text(V.Odbc.con!rst.FieldVal!Notes)
+F.Intrinsic.Control.Else
+	F.Intrinsic.UI.Msgbox("Could not open prepayment.")
+F.Intrinsic.Control.EndIf
+F.ODBC.con!rst.Close
+
+
+Program.Sub.LoadPayment.End
+
+Program.Sub.Save.Start
+V.Local.sSQL.Declare(String)
+V.Local.fAmt.Declare(Float)
+V.Local.fBal.Declare(Float)
+V.Local.iTemp.Declare(Long)
+V.Local.iYear.Declare(Long)
+V.Local.sCCNumber.Declare(String)
+V.Local.CCByteArray.Declare(ByteArray)
+
+'F.Intrinsic.Debug.InvokeDebugger
+
+F.Intrinsic.String.Concat("Select * from ATG_Prepay where OrderNo='",V.Global.sOrder,"' and PrepayID=",V.Screen.F_TCI!txtPayID.Text,V.Local.sSQL)
+F.ODBC.Connection!con.OpenRecordsetRW("rst",V.Local.sSQL)
+F.Intrinsic.Control.If(V.Odbc.con!rst.EOF,=,True)
+	F.ODBC.con!rst.AddNew
+	F.ODBC.con!rst.Set!OrderNo(V.Global.sOrder)
+	F.ODBC.con!rst.Set!PrepayID(V.Screen.F_TCI!txtPayID.Text)
+F.Intrinsic.Control.EndIf
+F.ODBC.con!rst.Set!Payment_Date(V.Ambient.Now)
+F.ODBC.con!rst.Set!Type(V.Screen.F_TCI!cboType.Text)
+F.Intrinsic.Math.ConvertToFloat(V.Screen.F_TCI!txtAmount.text,V.Local.fAmt)
+F.ODBC.con!rst.Set!Amount(V.Local.fAmt)
+F.ODBC.con!rst.Set!CC_Type("")
+'F.ODBC.con!rst.Set!Char_VLen("0")
+'F.ODBC.con!rst.Set!Char_FLen("0")
+F.Intrinsic.Control.If(V.Screen.F_TCI!cboType.ListIndex,=,1)
+	F.ODBC.con!rst.Set!CheckNo(V.Screen.F_TCI!txtNumber.Text)
+F.Intrinsic.Control.ElseIf(V.Screen.F_TCI!cboType.ListIndex,=,2)
+	'We need to encrypt this before we can write it back
+	F.Intrinsic.String.RPad(V.Screen.F_TCI!txtNumber.Text," ",50,V.Local.sCCNumber)
+	F.Global.Encryption.Encrypt(V.Local.sCCNumber,V.Local.CCByteArray)
+	F.ODBC.con!rst.Set!CCNo(V.Local.CCByteArray)
+	F.Intrinsic.Math.Add(V.Screen.F_TCI!cboMonth.ListIndex,1,V.Local.iTemp)
+	F.ODBC.con!rst.Set!CC_Exp_Mnth(V.Local.iTemp)
+	F.Intrinsic.Date.Year(V.Ambient.Date,V.Local.iYear)
+	F.Intrinsic.Math.Add(V.Screen.F_TCI!cboYear.ListIndex,V.Local.iYear,V.Local.iTemp)
+	F.ODBC.con!rst.Set!CC_Exp_Yr(V.Local.iTemp)
+	F.ODBC.con!rst.Set!Approval_Code(V.Screen.F_TCI!txtApproval.Text)
+F.Intrinsic.Control.Else
+
+F.Intrinsic.Control.EndIf
+F.ODBC.con!rst.Set!Notes(V.Screen.F_TCI!mltxtNote.Text)
+F.ODBC.con!rst.Set!Deleted(False)
+F.ODBC.con!rst.Set!GSUser(V.Caller.User)
+F.ODBC.con!rst.Set!Posted(False)
+F.ODBC.con!rst.Update
+F.ODBC.con!rst.Close
+
+F.Intrinsic.Control.CallSub("LoadList")
+F.Intrinsic.Control.CallSub("CalcOrderBalance")
+F.Intrinsic.Control.CallSub("NewPayment")
+
+
+Program.Sub.Save.End
+
+Program.Sub.NewPayment.Start
+V.Local.sSQL.Declare(String)
+V.Local.iID.Declare(Long)
+'F.Intrinsic.Debug.InvokeDebugger
+'F.Intrinsic.Debug.Stop
+
+Gui.F_TCI.dtpPayment.Value(V.Ambient.Date)
+Gui.F_TCI.cboType.ListIndex(-1)
+Gui.F_TCI.txtAmount.Text("")
+Gui.F_TCI.txtRemAmount.Text("")
+Gui.F_TCI.txtNumber.Text("")
+Gui.F_TCI.cboMonth.ListIndex(-1)
+Gui.F_TCI.cboYear.ListIndex(-1)
+Gui.F_TCI.txtApproval.Text("")
+Gui.F_TCI.mltxtNote.Text("")
+
+F.Intrinsic.String.Concat("Select Top 1 PrepayID from ATG_Prepay where OrderNo='",V.Global.sOrder,"' order by PrepayID desc",V.Local.sSQL)
+F.ODBC.Connection!con.OpenRecordsetRO("rstLU",V.Local.sSQL)
+F.Intrinsic.Control.If(V.Odbc.con!rstLU.EOF,=,True)
+	Gui.F_TCI.txtPayID.Text("1")
+F.Intrinsic.Control.Else
+	F.Intrinsic.Math.Add(V.Odbc.con!rstLU.FieldVal!PrepayID,1,V.Local.iID)
+	Gui.F_TCI.txtPayID.Text(V.Local.iID)
+F.Intrinsic.Control.EndIf
+F.ODBC.con!rstLU.Close
+
+Gui.F_TCI.cmdSave.Enabled(True)
+Gui.F_TCI.cmdDel.Enabled(False)
+Gui.F_TCI.cmdNew.Enabled(True)
+Gui.F_TCI.cmdDetail.Enabled(False)
+Gui.F_TCI.dtpPayment.Enabled(False)
+Gui.F_TCI.cboType.Enabled(True)
+Gui.F_TCI.txtAmount.Enabled(True)
+Gui.F_TCI.txtRemAmount.Enabled(False)
+Gui.F_TCI.txtNumber.Enabled(True)
+Gui.F_TCI.cboMonth.Enabled(True)
+Gui.F_TCI.cboYear.Enabled(True)
+Gui.F_TCI.txtApproval.Enabled(True)
+Gui.F_TCI.mltxtNote.Enabled(True)
+
+F.Intrinsic.Control.CallSub("TypeClick")
+
+Program.Sub.NewPayment.End
+
+Program.Sub.DeletePayment.Start
+V.Local.sSQL.Declare(String)
+
+F.Intrinsic.String.Concat("Select * from ATG_Prepay where OrderNo='",V.Global.sOrder,"' and PrepayID=",V.Screen.F_TCI!txtPayID.Text,V.Local.sSQL)
+F.ODBC.Connection!con.OpenRecordsetRW("rst",V.Local.sSQL)
+F.Intrinsic.Control.If(V.Odbc.con!rst.EOF,=,False)
+	F.Intrinsic.Control.If(V.Odbc.con!rst.FieldVal!Payment_Applied,=,"Y")
+		F.Intrinsic.UI.Msgbox("The prepayment has already been applied (invoiced) so it cannot be deleted.")
+	F.Intrinsic.Control.ElseIf(V.Odbc.con!rst.FieldVal!Payment_Applied,=,"P")
+		F.Intrinsic.UI.Msgbox("Part of the prepayment has already been applied (invoiced) so it cannot be deleted.")
+	F.Intrinsic.Control.Else
+		F.ODBC.con!rst.Set!Deleted(True)
+		F.ODBC.con!rst.Set!DeletedDate(V.Ambient.Now)
+		F.ODBC.con!rst.Update
+	F.Intrinsic.Control.EndIf
+	
+F.Intrinsic.Control.Else
+	F.Intrinsic.UI.Msgbox("Prepayment could not be found.")
+F.Intrinsic.Control.EndIf
+F.ODBC.con!rst.Close
+F.Intrinsic.Control.CallSub("NewPayment")
+F.Intrinsic.Control.CallSub("LoadList")
+F.Intrinsic.Control.CallSub("CalcOrderBalance")
+
+
+Program.Sub.DeletePayment.End
+
+Program.Sub.LoadScreen.Start
+V.Local.sTemp.declare(String)
+
+Gui.F_TCI.txtOrder.Text(V.Global.sOrder)
+Gui.F_TCI.dtpPayment.Value(V.Ambient.Date)
+'F.Intrinsic.String.Concat("$",V.Global.sTotal,V.Global.sTotal)
+F.Intrinsic.String.Format(V.Global.sTotal,"$0.00",V.Local.sTemp)
+Gui.F_TCI.txtTotal.Text(V.Local.sTemp)
+F.Intrinsic.Control.CallSub("LoadList")
+F.Intrinsic.Control.CallSub("CalcOrderBalance")
+F.Intrinsic.Control.CallSub("NewPayment")
+
+Program.Sub.LoadScreen.End
+
+Program.Sub.CalcOrderBalance.Start
+V.Local.fTotal.Declare(Float)
+V.Local.fRunning.Declare(Float)
+V.Local.fTemp.Declare(Float)
+V.Local.sTotalBal.Declare(String)
+V.Local.sSQL.Declare(String)
+
+'F.Intrinsic.Debug.InvokeDebugger
+'F.Intrinsic.Debug.Stop
+F.Intrinsic.String.Concat("Select * from ATG_Prepay where OrderNo='",V.Global.sOrder,"' and Deleted=0 order by PrepayID",V.Local.sSQL)
+F.ODBC.Connection!con.OpenRecordsetRO("rst",V.Local.sSQL)
+F.Intrinsic.Control.DoUntil(V.Odbc.con!rst.EOF,=,True)
+	F.Intrinsic.Control.CallSub("GetBalance","sOrder",V.Global.sOrder,"sPrepayID",V.Odbc.con!rst.FieldVal!PrepayID)
+	F.Intrinsic.Control.If(V.Args.fBal,=,0)
+		F.Intrinsic.Math.Add(V.Local.fRunning,V.Odbc.con!rst.FieldVal!Amount,V.Local.fRunning)
+	F.Intrinsic.Control.Else
+		F.Intrinsic.Math.Sub(V.ODBC.con!rst.fieldVal!Amount,V.Args.fBal,V.Local.fTemp)
+		F.Intrinsic.Math.Add(V.Local.fRunning,V.Local.fTemp,V.Local.fRunning)
+	F.Intrinsic.Control.EndIf
+	F.ODBC.con!rst.MoveNext
+F.Intrinsic.Control.Loop
+
+F.ODBC.con!rst.Close
+
+'F.Intrinsic.Math.ConvertToFloat(V.Args.sTotal,V.Local.fTotal)
+F.Intrinsic.Math.Sub(V.Global.fTotal,V.Local.fRunning,V.Local.fRunning)
+'F.Intrinsic.String.Concat("$",V.Local.fRunning,V.Local.sTotalBal)
+F.Intrinsic.String.Format(V.Local.fRunning,"$0.00",V.Local.sTotalBal)
+Gui.F_TCI.txtBalance.Text(V.Local.sTotalBal)
+
+Program.Sub.CalcOrderBalance.End
+
+Program.Sub.TypeClick.Start
+F.Intrinsic.Control.if(V.Screen.F_TCI!cboType.ListIndex,=,1)
+	Gui.F_TCI.lblNum.Caption("Check Number")
+	Gui.F_TCI.txtNumber.Enabled(True)
+	Gui.F_TCI.cboMonth.ListIndex(-1)
+	Gui.F_TCI.cboMonth.Enabled(False)
+	Gui.F_TCI.cboYear.ListIndex(-1)
+	Gui.F_TCI.cboYear.Enabled(False)
+	Gui.F_TCI.txtApproval.Enabled(False)
+F.Intrinsic.Control.ElseIf(V.Screen.F_TCI!cboType.ListIndex,=,2)
+	Gui.F_TCI.lblNum.Caption("Credit Card Number")
+	Gui.F_TCI.txtNumber.Enabled(True)
+	Gui.F_TCI.cboMonth.ListIndex(-1)
+	Gui.F_TCI.cboMonth.Enabled(True)
+	Gui.F_TCI.cboYear.ListIndex(-1)
+	Gui.F_TCI.cboYear.Enabled(True)
+	Gui.F_TCI.txtApproval.Enabled(True)
+F.Intrinsic.Control.Else
+	'Gui.F_TCI.lblNum.Caption("Check Number")
+	Gui.F_TCI.txtNumber.Enabled(false)
+	Gui.F_TCI.cboMonth.ListIndex(-1)
+	Gui.F_TCI.cboMonth.Enabled(False)
+	Gui.F_TCI.cboYear.ListIndex(-1)
+	Gui.F_TCI.cboYear.Enabled(False)
+	Gui.F_TCI.txtApproval.Enabled(False)
+F.Intrinsic.Control.EndIf
+
+Program.Sub.TypeClick.End
+
+
